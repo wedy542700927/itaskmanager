@@ -15,7 +15,7 @@ class CategoriesController < ApplicationController
     @datatables.order = params[:order]
     @datatables.search = params[:search]
 
-    column = ["id", "name","tasks_count","created_at","updated_at"][@datatables.order["0"]["column"].to_i]
+    column = ["id","id", "name","tasks_count","created_at","updated_at"][@datatables.order["0"]["column"].to_i]
     @datatables.iTotalRecords = Category.count
     if @datatables.search["value"] != "" 
       sql_like = "name like '%"+@datatables.search["value"]+"%'"

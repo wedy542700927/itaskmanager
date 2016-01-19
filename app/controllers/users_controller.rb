@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 # "password_digest"
 #"last_login_time"
 #{}"avatar"
-    column = ["id", "username","nickname","student_id","name","description","credits","email","admin","last_login_time","activation"][@datatables.order["0"]["column"].to_i]
+    column = ["id","id", "username","nickname","student_id","name","description","credits","email","admin","last_login_time","activation"][@datatables.order["0"]["column"].to_i]
     @datatables.iTotalRecords = User.count
     if @datatables.search["value"] != "" 
       sql_like = "name like '%"+@datatables.search["value"]+"%'"

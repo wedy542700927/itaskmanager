@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
     @datatables.length = params[:length]
     @datatables.order = params[:order]
     @datatables.search = params[:search]
-    column = ["id", "task_id","user_id","to_user_id","kind","status","content","created_at"][@datatables.order["0"]["column"].to_i]
+    column = ["id","id", "task_id","user_id","to_user_id","kind","status","content","created_at"][@datatables.order["0"]["column"].to_i]
     @datatables.iTotalRecords = TaskComment.count
     if @datatables.search["value"] != "" 
       sql_like = "content like '%"+@datatables.search["value"]+"%'"

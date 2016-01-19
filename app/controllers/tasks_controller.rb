@@ -15,7 +15,7 @@ class TasksController < ApplicationController
     @datatables.order = params[:order]
     @datatables.search = params[:search]
 
-    column = ["id", "title","category_id","content","award","pledge","user_id","taker_id","comments_count","status","created_at","updated_at"][@datatables.order["0"]["column"].to_i]
+    column = ["id","id", "title","category_id","content","award","pledge","user_id","taker_id","comments_count","status","created_at","updated_at"][@datatables.order["0"]["column"].to_i]
     @datatables.iTotalRecords = Task.count
     if @datatables.search["value"] != "" 
       sql_like = "title like '%"+@datatables.search["value"]+"%'"
