@@ -1,7 +1,7 @@
 $(function() {
-  var category_NamesArray = new jMap();//定义一个Map
+  var comment_NamesArray = new jMap();//定义一个Map
   var change_tips = $("span[name='changeTips']");
-  var categoryTable = $("#example").DataTable({
+  var commentTable = $("#example").DataTable({
     "bProcessing" : true,
     "bServerSide" : true,
     "bAutoWidth" : true,
@@ -12,7 +12,7 @@ $(function() {
     "dom": 'l<\'#topPlugin\'>frti<\'#message\'>p<"clear">',
     "ajax": {
       "type": "post",
-      "url":"/categories/category_list"
+      "url":"/comments/comment_list"
     },
     "aoColumns" : [{
             "mData" : "id",
@@ -23,15 +23,69 @@ $(function() {
             "orderable" : true, // 禁用排序
             "sDefaultContent" : ""
           },{
-            "mData" : "name",
+            "mData" : "task_id",
             "orderable":true,
             "sDefaultContent" : ""
           }, 
           {
-            "mData" : "tasks_count",
+            "mData" : "user_id",
             "orderable":true,
             "sDefaultContent" : ""
           },{
+            "mData" : "to_user_id",
+            "orderable":true,
+            "sDefaultContent" : ""
+          },{
+            "mData" : "kind",
+            "orderable":true,
+              "sDefaultContent" : "",
+            "render" : function(data, type, full, meta) {
+                      if(data=="0"){
+                          return "发布任务";
+                        }
+                      if(data=="1"){
+                          return "关闭任务";
+                        }
+                        if(data=="2"){
+                          return "请求接受";
+                        }
+                        if(data=="3"){
+                          return "请求完成";
+                        }
+                        if(data=="4"){
+                          return "同意接受";
+                        }
+                        if(data=="5"){
+                          return "同意完成";
+                        }
+                        if(data=="6"){
+                          return "评论";
+                        }
+                        if(data=="7"){
+                          return "回复";
+                        }
+                        if (data==null || data==""){
+                          return "";
+                        }
+            }},{
+            "mData" : "content",
+            "orderable":false,
+            "sDefaultContent" : ""
+            },{
+            "mData" : "status",
+            "orderable":true,
+              "sDefaultContent" : "",
+            "render" : function(data, type, full, meta) {
+                      if(data=="0"){
+                          return "未读";
+                        }
+                      if(data=="1"){
+                          return "已读";
+                        }
+                        if (data==null || data==""){
+                          return "";
+                        }
+            }},{
             "mData" : "created_at",
             "orderable":true,
               "sDefaultContent" : "",
@@ -44,18 +98,6 @@ $(function() {
                 return '';
               }
             }},{
-            "mData" : "updated_at",
-            "orderable":true,
-             "sDefaultContent" : "",
-            "render" : function(data, type, full, meta) {
-                      if(data!=null && data!=""){
-                          str=data.split(/T|\./);
-                          data=str[0]+' '+str[1]
-                          return data;
-                        }else{
-                          return '';
-                        }
-            } },{
                     "mData" : "",
             "orderable" : false, // 禁用排序
             "sDefaultContent" : 
@@ -82,10 +124,10 @@ $(function() {
   /**
    * ajax加载数据完成后回调json
    */
-   categoryTable.on( 'xhr', function () {
-    var json = categoryTable.ajax.json();
+   commentTable.on( 'xhr', function () {
+    var json = commentTable.ajax.json();
     for(var i=0;i<json.aaData.length;i++){
-      category_NamesArray.put(json.aaData[i].id,json.aaData[i].name);
+      comment_NamesArray.put(json.aaData[i].id,json.aaData[i].task_id);
     };
    });
 
@@ -95,7 +137,7 @@ $(function() {
      */
 
      function initComplete(data){
-      var topPlugin = '<a id="addCategory" data-toggle="modal" href="#"><i class="icon-font">&#xe026;</i>新增分类</a>&nbsp;&nbsp;&nbsp;&nbsp;'+
+      var topPlugin =
               '<a id="batchDel" href="#"><i class="icon-font">&#xe037;</i>批量删除</a>&nbsp;&nbsp;&nbsp;&nbsp;'+
                 '<a id="updateOrd" href="#"><i class="icon-font">&#xe046;</i>刷新表格</a>';//快捷操作的HTML DOM
 
@@ -103,17 +145,18 @@ $(function() {
 
   $('#topPlugin').append(topPlugin);//快捷操作的HTML DOM
        $("#message").append(messageHtml);//表格下方的操作区
-       $("#addCategory").on("click",function(){
-          $("#category_id").val("");//将日志id赋给隐藏的文本框
-          $("#name").val("");
-          $("#tasks_count").val("");
-          $('#categoryInfo').modal('show');
+       $("#addComment").on("click",function(){
+          $("#comment_id").val("");//将日志id赋给隐藏的文本框
+          $("#kind").val("0");
+          $("#content").val("");
+          $("#status").val("0");
+          $('#commentInfo').modal('show');
         });//给下方按钮绑定事件
         $("#batchDel").on("click",function(){
-          deleteObj($("input[name=categoryIds]"),'/categories/destroy',categoryTable)});//给下方按钮绑定事件
+          deleteObj($("input[name=commentIds]"),'/comments/destroy',commentTable)});//给下方按钮绑定事件
         $("#updateOrd").on("click",function(){
-                 categoryTable.ajax.reload();
-                 $("input[name=categoryIds]").val("");
+                 commentTable.ajax.reload();
+                 $("input[name=commentIds]").val("");
         });//给下方按钮绑定事件
     }
   /**
@@ -121,10 +164,45 @@ $(function() {
    */
    $('#example tbody').on('click', '#modify', function() {
 
-    $("#category_id").val(categoryTable.row($(this).closest('tr')).data().id);//将日志id赋给隐藏的文本框
-    $("#name").val($(this).closest('tr').children("td").eq(2).text());
-    $("#tasks_count").val($(this).closest('tr').children("td").eq(3).text());
-    $('#categoryInfo').modal('show');
+    $("#comment_id").val(commentTable.row($(this).closest('tr')).data().id);//将日志id赋给隐藏的文本框
+    if($(this).closest('tr').children("td").eq(5).text()=="发布任务"){
+          $("#kind").val("0");
+    }
+    if($(this).closest('tr').children("td").eq(5).text()=="关闭任务"){
+          $("#kind").val("1");
+    }
+    if($(this).closest('tr').children("td").eq(5).text()=="请求接受"){
+          $("#kind").val("2");
+    }
+    if($(this).closest('tr').children("td").eq(5).text()=="请求完成"){
+          $("#kind").val("3");
+    }
+    if($(this).closest('tr').children("td").eq(5).text()=="同意接受"){
+          $("#kind").val("4");
+    }
+    if($(this).closest('tr').children("td").eq(5).text()=="同意完成"){
+          $("#kind").val("5");
+    }
+    if($(this).closest('tr').children("td").eq(5).text()=="评论"){
+          $("#kind").val("6");
+    }
+    if($(this).closest('tr').children("td").eq(5).text()=="回复"){
+          $("#kind").val("7");
+    }
+    if($(this).closest('tr').children("td").eq(5).text()==""||$(this).closest('tr').children("td").eq(5).text()==null){
+          $("#kind").val("");
+    }
+    $("#content").val($(this).closest('tr').children("td").eq(6).text());
+    if($(this).closest('tr').children("td").eq(7).text()=="未读"){
+          $("#status").val("0");
+    }
+    if($(this).closest('tr').children("td").eq(7).text()=="已读"){
+          $("#statusstatus").val("1");
+    }
+    if($(this).closest('tr').children("td").eq(7).text()==""||$(this).closest('tr').children("td").eq(5).text()==null){
+          $("#status").val("");
+    }
+    $('#commentInfo').modal('show');
     // alert($("#admin").is(':checked'));
   });
   function deleteObj(idsDom,url,table){
@@ -134,10 +212,10 @@ $(function() {
               $.ajax({
                   type: "post",
                   url:url,
-                  data:{category_ids:idsDom.val()},
+                  data:{comment_ids:idsDom.val()},
                   dataType: "text",
                   success:function(data){
-                      message_tips.html(data+"条记录被删除!");
+                      showMassege(message_tips,true,data+"条记录被删除!");
                       setTimeout(function(){
                               table.ajax.reload();
                               idsDom.val("");//将隐藏域清空
@@ -153,17 +231,17 @@ $(function() {
           return false;
       }
   }
-    $("#changeCategoryInfo").on("click",function() {
+    $("#changeCommentInfo").on("click",function() {
             $.ajax({
                 type: "post",
-                url: "/categories/update",
-                data:{category_id:$("#category_id").val(),name:$("#name").val(),tasks_count:$("#tasks_count").val()},
+                url: "/comments/update",
+                data:{comment_id:$("#comment_id").val(),kind:$("#kind").val(),content:$("#content").val(),status:$("#status").val()},
                 dataType: "text",
                 success: function (data) {
                     if (data == "true") {
-                      $('#categoryInfo').modal('hide'); 
-                      categoryTable.ajax.reload();
-                      $("input[name=categoryIds]").val("");
+                      $('#commentInfo').modal('hide'); 
+                      commentTable.ajax.reload();
+                      $("input[name=commentIds]").val("");
                          var message_tips = $("span[name='messageTips']");
                         showMassege(message_tips,true,"成功！");
                         return false;
@@ -180,8 +258,8 @@ $(function() {
         return false;
     });
    $('#example tbody').on('click', '#deleteOne', function() {
-     $("input[name=categoryIds]").val(categoryTable.row($(this).closest('tr')).data().logid);//将日志id赋给隐藏的文本框
-     setTimeout(function(){deleteObj($("input[name=categoryIds]"),'/categories/destroy',categoryTable);},10);//调用批量删除的方法(延迟10毫秒是为了能够显示出现选中的操作)
+     $("input[name=commentIds]").val(commentTable.row($(this).closest('tr')).data().logid);//将日志id赋给隐藏的文本框
+     setTimeout(function(){deleteObj($("input[name=commentIds]"),'/comments/destroy',commentTable);},10);//调用批量删除的方法(延迟10毫秒是为了能够显示出现选中的操作)
   });
 
   //多选选中和取消选中,同时选中第一个单元格单选框,并联动全选单选框
@@ -192,17 +270,17 @@ $(function() {
       if(this.type=="checkbox" && (!$(event.target).is(":checkbox") && $(":checkbox",this).trigger("click"))){
         if(!this.checked){
           this.checked = true;
-          addValue($("input[name=categoryIds]"),this);
-          var selected = categoryTable.rows('.selected').data().length;//被选中的行数
+          addValue($("input[name=commentIds]"),this);
+          var selected = commentTable.rows('.selected').data().length;//被选中的行数
           //全选单选框的状态处理
-          var recordsDisplay=categoryTable.page.info().recordsDisplay;//搜索条件过滤后的总行数
-          var iDisplayStart=categoryTable.page.info().start;// 起始行数
-          if(selected === categoryTable.page.len()||selected === recordsDisplay||selected === (recordsDisplay - iDisplayStart)){
+          var recordsDisplay=commentTable.page.info().recordsDisplay;//搜索条件过滤后的总行数
+          var iDisplayStart=commentTable.page.info().start;// 起始行数
+          if(selected === commentTable.page.len()||selected === recordsDisplay||selected === (recordsDisplay - iDisplayStart)){
             allChecked.checked = true;
           }
         }else{
           this.checked = false;
-          cancelValue($("input[name=categoryIds]"),this);
+          cancelValue($("input[name=commentIds]"),this);
           allChecked.checked = false;
         }
       }
@@ -224,3 +302,4 @@ $(function() {
     }
   }); 
 });
+

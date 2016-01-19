@@ -179,7 +179,7 @@ $(function() {
 	                data:{user_ids:idsDom.val()},
 	                dataType: "text",
 	                success:function(data){
-	                    message_tips.html(data+"条记录被删除!");
+	                    showMassege(message_tips,true,data+"条记录被删除!");
 	                    setTimeout(function(){
 	                            table.ajax.reload();
 	                            idsDom.val("");//将隐藏域清空
