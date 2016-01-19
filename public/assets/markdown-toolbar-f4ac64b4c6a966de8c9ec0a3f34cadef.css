@@ -1,0 +1,114 @@
+.markdown-toolbar-panel {
+  height: 20px;
+  border: 1px solid #aaa;
+  background: #fafafa;
+  margin-bottom:0;
+  border-bottom:0;
+  overflow: hidden;
+}
+.markdown-upload-panel {
+  margin-top:0;
+  border-top:0;
+  padding:5px;
+}
+
+.mdt_buttons {
+  width:auto;
+  display:inline-block;
+  margin-top:2px;
+  margin-bottom:2px;  
+  height: 20px;
+  overflow: hidden;
+}
+
+.mdt_button {
+  width:16px;
+  height:16px;
+  cursor:pointer;
+  display:inline-block;
+  float:left;
+  margin-left:2px;
+}
+
+.mdt_button_delimiter {
+  background: url( /assets/text_delimiter-86ecfbb27b14c9214f61a246065d0d54.png);
+}
+.mdt_button_delimiter:active{
+    background-position: 1px 1px;
+}
+.mdt_button_code {
+  background: url( /assets/text_code-2e26da2fb8e1d60d95e6b7e2d1d8bf8f.png);
+}
+.mdt_button_code:active{
+    background-position: 1px 1px;
+}
+.mdt_button_blockquote {
+  background: url( /assets/text_blockquote-5397ed8ada39222939591c3d6bf3485a.png);
+}
+.mdt_button_blockquote:active{
+    background-position: 1px 1px;
+}
+.mdt_button_bold {
+  background: url( /assets/text_bold-bbd6eccd4b950ef88f312098760d69a5.png);
+}
+.mdt_button_bold:active{
+    background-position: 1px 1px;
+}
+.mdt_button_italic {
+  background: url( /assets/text_italic-611c875c4fe2c9da165b05d022292317.png);
+}
+.mdt_button_italic:active{
+    background-position: 1px 1px;
+}
+.mdt_button_strike {
+  background: url( /assets/text_strike-d449a68252b1b8eaa8d49221fdaa1106.png);
+}
+.mdt_button_strike:active{
+    background-position: 1px 1px;
+}
+.mdt_button_list_bullets {
+  background: url( /assets/text_list_bullets-9386dc8761bc8e5904034b5d8d6f8ec4.png);
+}
+.mdt_button_list_bullets:active{
+    background-position: 1px 1px;
+}
+.mdt_button_list_numbers {
+  background: url( /assets/text_list_numbers-e68f0bdfd31afbdfae6777bfaecf3c12.png);
+}
+.mdt_button_list_numbers:active{
+    background-position: 1px 1px;
+}
+.mdt_button_heading_1 {
+  background: url( /assets/text_heading_1-a2670b3468c4a613bbd89f2b908bd5ba.png);
+}
+.mdt_button_heading_1:active{
+    background-position: 1px 1px;
+}
+.mdt_button_heading_2 {
+  background: url( /assets/text_heading_2-cb8d5691f98a873aa0c3d9f4c074610b.png);
+}
+.mdt_button_heading_2:active{
+    background-position: 1px 1px;
+}
+.mdt_button_heading_3 {
+  background: url( /assets/text_heading_3-3e8f50403efc02167db29fb180442a8c.png);
+}
+.mdt_button_heading_3:active{
+    background-position: 1px 1px;
+}
+.mdt_button_link {
+  background: url( /assets/text_link-41bebabfd7dcdd50d518c1961c6ae355.png);
+}
+.mdt_button_link:active{
+    background-position: 1px 1px;
+}
+.mdt_button_image {
+  background: url( /assets/text_image-148c2614c64b257613b7e20853012ddd.png);
+}
+.mdt_button_image:active{
+    background-position: 1px 1px;
+}
+
+.mdt_button.mdt_button_delimiter{
+  cursor:inherit;
+}

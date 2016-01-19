@@ -1,0 +1,16 @@
+.topbar-wrap.white
+  .topbar-inner.clearfix
+    .topbar-logo-wrap.clearfix
+      %ul.navbar-list.clearfix
+        ITASKMANAGER
+      %ul.navbar-list.clearfix
+        %li
+          =link_to '首页', root_path
+    .top-info-wrap
+      %ul.top-info-list.clearfix
+        %li
+          =@user.username
+        %li{class: "#{'active' if params[:controller] == 'users' && params[:action] == 'change_pw_form'}"}
+          =link_to "修改密码","/users/change_pw_form"
+        %li
+          =link_to  "退出","/users/logout"

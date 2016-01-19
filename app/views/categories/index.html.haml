@@ -1,0 +1,86 @@
+!!!
+%html
+  %head
+    %meta{:charset => "UTF-8"}/
+    %title 后台管理系统——分类管理
+    = javascript_include_tag "jquery-1.11.1.min"
+    = javascript_include_tag "bootstrap.min"
+    = javascript_include_tag "jquery.dataTables.min"
+    = javascript_include_tag "dataTables.bootstrap"
+    = javascript_include_tag "jquery.uploadify"
+    = javascript_include_tag "public_javascript"
+    = javascript_include_tag "page/sys/categoryScript"
+    = stylesheet_link_tag "bootstrap"
+    = stylesheet_link_tag "dataTables.bootstrap"
+    = stylesheet_link_tag "uploadify"
+    = stylesheet_link_tag "common"
+    = stylesheet_link_tag "main"
+  %body
+    = render '/page/header'
+    .container.clearfix
+      = render '/page/menu'
+      / /sidebar
+      .main-wrap
+        .crumb-wrap
+          .crumb-list
+            %i.icon-font 
+            %a{:href => "/page/index"} 首页
+            %span.crumb-step >
+            %span.crumb-name 分类管理
+        .result-wrap
+          .result-content
+            %input{:name => "categoryIds", :type => "hidden"}/
+            %table#example.table.table-bordered
+              %thead
+                %tr
+                  %th
+                    %input{:name => "allChecked", :type => "checkbox"}
+                  %th ID
+                  %th 名称
+                  / %th 密码
+                  %th 任务总数
+                  / %th 头像
+                  %th 创建日期
+                  %th 更新日期
+                  %th 操作
+                  / %th 姓名
+                  / %th 个人说明
+              %tbody
+        .modal.fade#categoryInfo{"aria-labelledby" => "myModalLabel", :role => "dialog", :style => "width:600px;margin:auto auto;"}
+          %form{:name => "categoryForm"}
+            .modal-dialog
+              .modal-content
+                .modal-header
+                  %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                    %span{"aria-hidden" => "true"} ×
+                  %h4#myModalLabel.modal-title 分类信息
+                .modal-body
+                  .form-group
+                    .tab-content
+                      #baseMessage.tab-pane.active
+                        .input-group
+                          .span ID
+                          %input.ipt{:name => "category_id",:id=>"category_id", :disabled=>"true"}/
+                        .input-group
+                          .span 名称
+                          %input.ipt{:name => "name",:id=>"name", :placeholder => "请填写分类名称", :required => "", :type => "text"}/
+                        .input-group
+                          .span 任务总数
+                          %input.ipt{:name => "tasks_count",:id=>"tasks_count", :placeholder => "请填写任务总数", :required => "", :type => "text"}/
+                  %span{:name=>"changeTips"}
+                .modal-footer
+                  %button.btn.btn-default{"data-dismiss" => "modal", :type => "reset"} 取消
+                  %button.btn.btn-primary{:id => "changeCategoryInfo"} 提交
+:css
+  .ipt {
+    border: 1px solid #d3d3d3;
+    padding: 6px 12px;
+    height: 34px;
+    width: 290px;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+  }

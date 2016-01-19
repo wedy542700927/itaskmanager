@@ -1,0 +1,38 @@
+!!!
+%html
+  %head
+    %meta{:charset => "UTF-8"}/
+    %title 后台管理系统——XX管理
+    = javascript_include_tag "jquery-1.11.1.min"
+    = javascript_include_tag "bootstrap.min"
+    = javascript_include_tag "public_javascript"
+    = javascript_include_tag "page/sys/changeScript"
+    = stylesheet_link_tag "bootstrap"
+    = stylesheet_link_tag "common"
+    = stylesheet_link_tag "main"
+  %body
+    = render '/page/header'
+    .container.clearfix
+      = render '/page/menu'
+      / /sidebar
+      / /sidebar
+      .main-wrap
+        .crumb-wrap
+          .crumb-list
+            %i.icon-font 
+            %span 修改密码
+        .result-wrap
+          .result-content
+            .input-group
+              %span 原密码
+              %input.form-control{:name => "oldPassword", :placeholder => "请输入原密码", :type => "password", :value => ""}
+            .input-group
+              %span 新密码
+              %input.form-control{:name => "newPassword", :placeholder => "请输入新密码", :type => "password", :value => ""}
+            .input-group
+              %span 确认密码
+              %input.form-control{:name => "newPasswordConfirm", :placeholder => "请确认密码", :type => "password", :value => ""}
+            .input-group
+            %span{:name => "changeTips"} 
+            %br
+            %button.btn.btn-info{:id => "changePassword"} 修改

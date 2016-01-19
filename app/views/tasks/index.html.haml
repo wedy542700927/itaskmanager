@@ -1,0 +1,106 @@
+!!!
+%html
+  %head
+    %meta{:charset => "UTF-8"}/
+    %title 后台管理系统——任务管理
+    = javascript_include_tag "jquery-1.11.1.min"
+    = javascript_include_tag "bootstrap.min"
+    = javascript_include_tag "jquery.dataTables.min"
+    = javascript_include_tag "dataTables.bootstrap"
+    = javascript_include_tag "jquery.uploadify"
+    = javascript_include_tag "public_javascript"
+    = javascript_include_tag "page/sys/taskScript"
+    = stylesheet_link_tag "bootstrap"
+    = stylesheet_link_tag "dataTables.bootstrap"
+    = stylesheet_link_tag "uploadify"
+    = stylesheet_link_tag "common"
+    = stylesheet_link_tag "main"
+  %body
+    = render '/page/header'
+    .container.clearfix
+      = render '/page/menu'
+      / /sidebar
+      .main-wrap
+        .crumb-wrap
+          .crumb-list
+            %i.icon-font 
+            %a{:href => "/page/index"} 首页
+            %span.crumb-step >
+            %span.crumb-name 任务管理
+        .result-wrap
+          .result-content
+            %input{:name => "taskIds", :type => "hidden"}/
+            %table#example.table.table-bordered
+              %thead
+                %tr
+                  %th
+                    %input{:name => "allChecked", :type => "checkbox"}
+                  %th ID
+                  %th 标题
+                  %th 类型
+                  %th 内容
+                  %th 奖励
+                  %th 保证金
+                  %th 发布者
+                  %th 接受者
+                  %th 消息数
+                  %th 状态
+                  %th 创建日期
+                  %th 更新日期
+                  %th 操作
+                  / %th 姓名
+                  / %th 个人说明
+              %tbody
+        .modal.fade#taskInfo{"aria-labelledby" => "myModalLabel", :role => "dialog", :style => "width:600px;margin:auto auto;"}
+          %form{:name => "taskForm"}
+            .modal-dialog
+              .modal-content
+                .modal-header
+                  %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                    %span{"aria-hidden" => "true"} ×
+                  %h4#myModalLabel.modal-title 任务信息
+                .modal-body
+                  .form-group
+                    .tab-content
+                      #baseMessage.tab-pane.active
+                        .input-group
+                          .span ID
+                          %input.ipt{:name => "task_id",:id=>"task_id", :disabled=>"true"}/
+                        .input-group
+                          .span 标题
+                          %input.ipt{:name => "title",:id=>"title", :placeholder => "请填写任务标题", :required => "", :type => "text"}/
+                        .input-group
+                          .span 分类
+                          = select_tag "category_id", options_for_select(get_categories_options, 0), include_blank: false, class: 'form-control',id:'category_id',name:'category_id'
+                        .input-group
+                          .span 内容
+                          %textarea.form-control{:name => "content",:id=>"content", :rows => "2", :placeholder => "请填写任务内容",:style => "width: 467px"}
+                        .input-group
+                          %span 奖励&nbsp;
+                          %input.ipt{:name => "award",:id=>"award", :placeholder => "奖励", :required => "", :type => "text",:style => "width: 100px"}/  
+                          %span &nbsp;保证金&nbsp;
+                          %input.ipt{:name => "pledge",:id=>"pledge", :placeholder => "保证金", :required => "", :type => "text",:style => "width: 100px"}/
+                        .input-group
+                          %span 状态
+                          %select.form-control{:name => "status",:id=>"status"}
+                            %option{:value=>"0"} 待接受
+                            %option{:value=>"1"} 进行中
+                            %option{:value=>"2"} 已完成
+                            %option{:value=>"3"} 已关闭
+                  %span{:name=>"changeTips"}
+                .modal-footer
+                  %button.btn.btn-default{"data-dismiss" => "modal", :type => "reset"} 取消
+                  %button.btn.btn-primary{:id => "changeTaskInfo"} 提交
+:css
+  .ipt {
+    border: 1px solid #d3d3d3;
+    padding: 6px 12px;
+    height: 34px;
+    width: 290px;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+  }

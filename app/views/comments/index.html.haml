@@ -1,0 +1,98 @@
+!!!
+%html
+  %head
+    %meta{:charset => "UTF-8"}/
+    %title 后台管理系统——消息管理
+    = javascript_include_tag "jquery-1.11.1.min"
+    = javascript_include_tag "bootstrap.min"
+    = javascript_include_tag "jquery.dataTables.min"
+    = javascript_include_tag "dataTables.bootstrap"
+    = javascript_include_tag "jquery.uploadify"
+    = javascript_include_tag "public_javascript"
+    = javascript_include_tag "page/sys/commentScript"
+    = stylesheet_link_tag "bootstrap"
+    = stylesheet_link_tag "dataTables.bootstrap"
+    = stylesheet_link_tag "uploadify"
+    = stylesheet_link_tag "common"
+    = stylesheet_link_tag "main"
+  %body
+    = render '/page/header'
+    .container.clearfix
+      = render '/page/menu'
+      / /sidebar
+      .main-wrap
+        .crumb-wrap
+          .crumb-list
+            %i.icon-font 
+            %a{:href => "/page/index"} 首页
+            %span.crumb-step >
+            %span.crumb-name 消息管理
+        .result-wrap
+          .result-content
+            %input{:name => "commentIds", :type => "hidden"}/
+            %table#example.table.table-bordered
+              %thead
+                %tr
+                  %th
+                    %input{:name => "allChecked", :type => "checkbox"}
+                  %th ID
+                  %th 任务
+                  %th From
+                  %th To
+                  %th 消息类别
+                  %th 内容
+                  %th 状态
+                  %th 创建日期
+                  %th 操作
+              %tbody
+        .modal.fade#commentInfo{"aria-labelledby" => "myModalLabel", :role => "dialog", :style => "width:600px;margin:auto auto;"}
+          %form{:name => "commentForm"}
+            .modal-dialog
+              .modal-content
+                .modal-header
+                  %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                    %span{"aria-hidden" => "true"} ×
+                  %h4#myModalLabel.modal-title 消息信息
+                .modal-body
+                  .form-group
+                    .tab-content
+                      #baseMessage.tab-pane.active
+                        .input-group
+                          .span ID
+                          %input.ipt{:name => "comment_id",:id=>"comment_id", :disabled=>"true"}/
+                        .input-group
+                          %span 消息类别
+                          %select.form-control{:name => "kind",:id=>"kind"}
+                            %option{:value=>"0"} 发布任务
+                            %option{:value=>"1"} 关闭任务
+                            %option{:value=>"2"} 请求接受
+                            %option{:value=>"3"} 请求完成
+                            %option{:value=>"4"} 同意接受
+                            %option{:value=>"5"} 同意完成
+                            %option{:value=>"6"} 评论
+                            %option{:value=>"7"} 回复           
+                        .input-group
+                          .span 内容
+                          %textarea.form-control{:name => "content",:id=>"content", :rows => "2", :placeholder => "请填写任务内容",:style => "width: 467px"}
+                        .input-group
+                          %span 状态
+                          %select.form-control{:name => "status",:id=>"status"}
+                            %option{:value=>"0"} 未读
+                            %option{:value=>"1"} 已读
+                  %span{:name=>"changeTips"}
+                .modal-footer
+                  %button.btn.btn-default{"data-dismiss" => "modal", :type => "reset"} 取消
+                  %button.btn.btn-primary{:id => "changeCommentInfo"} 提交
+:css
+  .ipt {
+    border: 1px solid #d3d3d3;
+    padding: 6px 12px;
+    height: 34px;
+    width: 290px;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+  }

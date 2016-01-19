@@ -1,0 +1,63 @@
+!!!
+%html
+  %head
+    %meta{:charset => "UTF-8"}/
+    %title 后台管理系统——首页
+    = javascript_include_tag "jquery-1.11.1.min"
+    = stylesheet_link_tag "common"
+    = stylesheet_link_tag "main"
+  %body
+    = render 'header'
+    .container.clearfix
+      = render 'menu'
+      / /sidebar
+      .main-wrap
+        .crumb-wrap
+          .crumb-list
+            %i.icon-font 
+            %span 欢迎使用后台管理系统
+        .result-wrap
+          .result-title
+            %h1 系统基本信息
+          .result-content
+            %ul.sys-info-list
+              / %li
+              /   %label.res-lab 操作系统
+              /   %span.res-info= ENV['OS']
+              %li
+                %label.res-lab 运行环境
+                %span.res-info
+                  Ruby on Rails #{Rails.version}
+              / %li
+              /   %label.res-lab 系统版本
+              /   %span.res-info v-0.1
+              / %li
+              /   %label.res-lab 上传附件限制
+              /   %span.res-info 2M
+              %li
+                %label.res-lab 北京时间
+                %span#time.res-info
+              %li
+                %label.res-lab 服务器域名/IP
+                %span.res-info
+                  = @hostname
+                   #{@ip_address}
+              %li
+                %label.res-lab Host
+                %span.res-info= request.remote_ip
+:javascript
+                  function time() {
+                var d = new Date();
+                var year = d.getFullYear();
+                var month = d.getMonth();
+                var day = d.getDate();
+                var h = d.getHours();
+                var m = d.getMinutes();
+                var s = d.getSeconds();
+                var week = d.getDay();
+                var weeks = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+                var newDay = year + "年" + (month + 1) + "月" + day + "日 " + h + "点" + m + "分" + s + "秒 " + weeks[week];
+                document.getElementById("time").innerHTML = newDay;
+                setTimeout("time()", 1000);
+                }
+                time();

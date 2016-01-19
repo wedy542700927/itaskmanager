@@ -1,0 +1,32 @@
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %title 后台管理系统——管理员登录
+    %meta{:content => "IE=11.0000", "http-equiv" => "X-UA-Compatible"}/
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+    = javascript_include_tag "jquery-1.11.1.min"
+    = javascript_include_tag "public_javascript"
+    = javascript_include_tag "page/sys/loginScript"
+    = stylesheet_link_tag "login_page_style"
+  %body
+    .top_div
+      .title 
+        后台管理系统 
+        %br
+        ITASK
+    .top_div_div
+      %div{:style => "width: 165px; height: 96px; position: absolute;"}
+        .tou
+        #left_hand.initial_left_hand
+        #right_hand.initial_right_hand
+      %p{:style => "padding: 30px 0px 10px; position: relative;"}
+        %span.u_logo
+        %input.ipt{:name => "username", :placeholder => "请输入用户名", :type => "text", :value => ""}/
+      %p{:style => "position: relative;"}
+        %span.p_logo
+        %input.ipt{:name => "password", :placeholder => "请输入密码", :type => "password", :value => ""}/
+      .do_div
+        %p{:style => "margin: 0px 35px 20px 45px;"}
+          %span{:name => "loginTips", :style => "float: left;"} 登录提示消息
+          %span{:style => "float: right;"}
+            %a.submit_a{:href => "#"} 登录
