@@ -37,9 +37,7 @@
                     %input{:name => "allChecked", :type => "checkbox"}
                   %th ID
                   %th 用户名
-                  / %th 密码
                   %th 昵称
-                  / %th 头像
                   %th 学号
                   %th 姓名
                   %th 个人说明
@@ -64,7 +62,7 @@
                       #baseMessage.tab-pane.active
                         .input-group
                           .span ID
-                          %input.ipt{:name => "user_id",:id=>"user_id", :disabled=>"true" }/
+                          %input.ipt{:name => "user_id",:placeholder => "自动生成",:id=>"user_id", :disabled=>"true" }/
                         .input-group
                           .span 用户名
                           %input.ipt{:name => "username",:id=>"username", :placeholder => "请填写用户名", :required => "", :type => "text"}/

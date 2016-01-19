@@ -20,7 +20,7 @@ $(function() {
 						"sDefaultContent" : ""
 					}, {
 						"mData" : "id",
-						"orderable" : true, // 禁用排序
+						"orderable" : true,
 						"sDefaultContent" : ""
 					},{
 						"mData" : "username",

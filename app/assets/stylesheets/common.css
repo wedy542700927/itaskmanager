@@ -230,6 +230,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 .topbar-inner {
 	font-size: 18px;
 	padding: 0 20px;
+	background: #428bca;
 }
 .topbar-logo {
 	float: left;
@@ -258,7 +259,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 .navbar-list li a.on {
 	color: #fff;
-	text-shadow: 1px 1px 1px #003;
 	background: #033b70;
 }
 .top-info-list li {
