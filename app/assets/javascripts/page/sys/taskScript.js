@@ -152,11 +152,11 @@ $(function() {
        $("#addTask").on("click",function(){
           $("#task_id").val("");//将日志id赋给隐藏的文本框
           $("#title").val("");
-          $("#category_id").val("");
+          $('#category_id')[0].selectedIndex = 0;
           $("#content").val("");
           $("#award").val("");
           $("#pledge").val("");
-          $("#status").val("");
+          $("#status").val("0");
           $('#taskInfo').modal('show');
         });//给下方按钮绑定事件
         $("#batchDel").on("click",function(){
@@ -204,7 +204,7 @@ $(function() {
                   data:{task_ids:idsDom.val()},
                   dataType: "text",
                   success:function(data){
-                      message_tips.html(data+"条记录被删除!");
+                      showMassege(message_tips,true,data+"条记录被删除!");
                       setTimeout(function(){
                               table.ajax.reload();
                               idsDom.val("");//将隐藏域清空

@@ -42,6 +42,7 @@ class TasksController < ApplicationController
       @task = Task.find params[:task_id]
     else
       @task = Task.new
+      @task.user_id=session[:user_id]
     end
     @task.title=params[:title]
     @task.category_id=params[:category_id]

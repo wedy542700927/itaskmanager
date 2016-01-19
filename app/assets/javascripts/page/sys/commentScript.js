@@ -147,9 +147,9 @@ $(function() {
        $("#message").append(messageHtml);//表格下方的操作区
        $("#addComment").on("click",function(){
           $("#comment_id").val("");//将日志id赋给隐藏的文本框
-          $("#kind").val("");
+          $("#kind").val("0");
           $("#content").val("");
-          $("#status").val("");
+          $("#status").val("0");
           $('#commentInfo').modal('show');
         });//给下方按钮绑定事件
         $("#batchDel").on("click",function(){
@@ -215,7 +215,7 @@ $(function() {
                   data:{comment_ids:idsDom.val()},
                   dataType: "text",
                   success:function(data){
-                      message_tips.html(data+"条记录被删除!");
+                      showMassege(message_tips,true,data+"条记录被删除!");
                       setTimeout(function(){
                               table.ajax.reload();
                               idsDom.val("");//将隐藏域清空
