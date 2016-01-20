@@ -81,7 +81,7 @@ $(function() {
 						"orderable" : false, // 禁用排序
 						"sDefaultContent" : 
 						// '<a id="show" href="#" class="glyphicon glyphicon-info-sign" aria-hidden="true"> </a>&nbsp;&nbsp;&nbsp;&nbsp;' +
-						'<a id="modify" href="#" > 编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;' +
+						'<a id="modify" href="#" > 编辑</a>&nbsp;&nbsp;' +
 						'<a id="deleteOne" href="#">删除</a>',
 						"sWidth":'10%' 
 					}],
